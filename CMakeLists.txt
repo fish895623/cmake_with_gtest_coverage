@@ -8,7 +8,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 file(GLOB SOURCES "${CMAKE_SOURCE_DIR}/sources/*.cpp")
 
 add_executable(${PROJECT_NAME} ${SOURCES})
-target_include_directories(${PROJECT_NAME} PUBLIC ${CMAKE_SOURCE_DIR}/includes)
+target_include_directories(${PROJECT_NAME} PRIVATE ${CMAKE_SOURCE_DIR}/includes)
 
 include(FetchContent)
 
@@ -26,7 +26,10 @@ enable_testing()
 add_executable(
   ${PROJECT_NAME}_test
   ${TESTS}
+  ${SOURCES}
 )
+target_include_directories(${PROJECT_NAME}_test PRIVATE
+  ${CMAKE_SOURCE_DIR}/includes)
 target_link_libraries(
   ${PROJECT_NAME}_test
   GTest::gtest_main
