@@ -18,3 +18,18 @@ FetchContent_Declare(
   GIT_TAG main
 )
 FetchContent_MakeAvailable(googletest)
+
+# Test case
+file(GLOB TESTS "${CMAKE_SOURCE_DIR}/tests/*.cpp")
+
+enable_testing()
+add_executable(
+  ${PROJECT_NAME}_test
+  ${TESTS}
+)
+target_link_libraries(
+  ${PROJECT_NAME}_test
+  GTest::gtest_main
+)
+include(GoogleTest)
+gtest_discover_tests(${PROJECT_NAME}_test)
