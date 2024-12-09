@@ -43,3 +43,14 @@ target_link_options(${PROJECT_NAME}_test PRIVATE
 )
 include(GoogleTest)
 gtest_discover_tests(${PROJECT_NAME}_test)
+
+add_custom_target(
+  run_tests
+  DEPENDS ${PROJECT_NAME}_test
+  COMMAND ctest --output-on-failure)
+add_custom_target(
+  coverage_report
+  DEPENDS run_tests
+  WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+  COMMAND gcovr -r . --exclude build --exclude tests --html --html-details -o coverage_report.html
+)

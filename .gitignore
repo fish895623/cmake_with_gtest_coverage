@@ -1,2 +1,7 @@
 .cache
 build/
+
+# ignore report
+
+*.css
+*.html
