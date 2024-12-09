@@ -21,6 +21,7 @@ FetchContent_MakeAvailable(googletest)
 
 # Test case
 file(GLOB TESTS "${CMAKE_SOURCE_DIR}/tests/*.cpp")
+list(REMOVE_ITEM SOURCES "${CMAKE_SOURCE_DIR}/sources/main.cpp")
 
 enable_testing()
 add_executable(
@@ -28,8 +29,8 @@ add_executable(
   ${TESTS}
   ${SOURCES}
 )
-target_include_directories(${PROJECT_NAME}_test PRIVATE
-  ${CMAKE_SOURCE_DIR}/includes)
+target_include_directories(
+  ${PROJECT_NAME}_test PUBLIC ${CMAKE_SOURCE_DIR}/includes)
 target_link_libraries(
   ${PROJECT_NAME}_test
   GTest::gtest_main
